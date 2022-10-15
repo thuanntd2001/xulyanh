@@ -4,7 +4,7 @@ import cv2
 from matplotlib import pyplot as plt
 import khuNhieu
 
-img = cv2.imread("noisy/cat.jpeg")
+img = cv2.imread("noisy/bird.jpg")
 
 
 def grayscale(img):

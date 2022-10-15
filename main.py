@@ -1,5 +1,7 @@
+
 import pygame
 import cv2
+import faceRecognition
 from giaoDien import Menu as Menu,screen_width,screen_height,waiter
 
 from duyetFile import duyet
@@ -36,7 +38,14 @@ if __name__ == '__main__':
                         print(url)
                         waiter()
                         run=True
+                    if MENU.state == 3:
+                        # --- phat hien khuon mat ------
+                        cv2.imshow("Original",cv2.resize(faceRecognition.faceDectection(img), (screen_width, screen_height)))
+                        print(url)
+                        waiter()
+                        run=True
                     if MENU.state == 0:
+
                         # --- duyet file ------
                         url=duyet()
                         img=cv2.imread(url)
