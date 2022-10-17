@@ -1,32 +1,28 @@
+import face_recognition
 import cv2
 import dlib
 
-def faceDectection(img):
 
-    # # read the image
-    imgDetect = img
-    # conver img to grayscale: 3D -> 2D
-    gray = cv2.cvtColor(src=imgDetect, code=cv2.COLOR_BGR2GRAY)
 
-    # dlib: Load Face Recognition Detector
-    face_detector = dlib.get_frontal_face_detector()
+image_path='img/1.jpg'
 
-    # load the predictor:
-    predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+face_detector=cv2.CascadeClassifier('haarcascade_frontalface_alt.xml')
 
-    # use detector to find face landmarks
-    faces = face_detector(gray)
+img=cv2.imread(image_path)
 
-    for face in faces:
-        x1 = face.left()  # left Point
-        y1 = face.top()  # top Point
-        x2 = face.right()  # right Point
-        y2 = face.bottom()  # bottom Point
+img_gray=cv2.cvtColor(src=img,code=cv2.COLOR_BGR2GRAY)
 
-        # Draw a rectangle
-        cv2.rectangle(img=imgDetect, pt1=(x1, y1), pt2=(
-            x2, y2), color=(0, 255, 0), thickness=3)
+while True:
+    count=0
+    faces=face_detector.detectMultiScale(img_gray,1.3,5)
 
-        face_features = predictor(image=gray, box=face)
+    for(x,y,w,h) in faces:
+        img_face=cv2.resize(img[y+3:y+h-3,x+3:x+w-3],(70,70))
+        cv2.imwrite('img/people_{}.jpg'.format(count),img_face)
+        cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2)
+        count +=1
 
-    return imgDetect
+
+    cv2.imshow('Face recongition',img)
+    if cv2.waitKey(delay=0): break
+    cv2.destroyAllWindows()
