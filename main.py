@@ -1,7 +1,6 @@
 
 import pygame
 import cv2
-import faceRecognition
 from giaoDien import Menu as Menu,screen_width,screen_height,waiter
 from duyetFile import duyet
 import khuNhieu
@@ -32,16 +31,7 @@ if __name__ == '__main__':
             MENU.event_handler(event)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    if MENU.state == 5:
-                        # --- show file ------
-                        cv2.imshow("Original",img)
-                        print(url)
-                        waiter()
-                    if MENU.state == 3:
-                        # --- phat hien khuon mat ------
-                        cv2.imshow("Original",cv2.resize(faceRecognition.faceDectection(img), (screen_width, screen_height)))
-                        print(url)
-                        waiter()
+                    
                     if MENU.state == 0:
 
                         # --- duyet file ------
@@ -64,6 +54,17 @@ if __name__ == '__main__':
                         cv2.imshow("edge",imgEdge)
                         waiter()
                         cv2.imwrite("output/edge/timCanh_."+url[-2:0]+"jpg",imgEdge)
+                    elif MENU.state == 3:
+                        # --- phat hien khuon mat ------
+                        #cv2.imshow("Phat hien khuon mat",cv2.resize(faceRecognition.faceDectection(img), (screen_width, screen_height)))
+                        print(url)
+                        waiter()
+                    elif MENU.state == 5:
+                        # --- show file ------
+                        cv2.imshow("Original",img)
+                        print(url)
+                        waiter()
+
         screen.blit(bg,(0,0))
         MENU.update(screen)
         
