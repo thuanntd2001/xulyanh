@@ -30,9 +30,9 @@ if __name__ == '__main__':
                 run = False
             MENU.event_handler(event)
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
+                if event.key == pygame.K_RETURN: # trong nay la xu ly giao dien
                     
-                    if MENU.state == 0:
+                    if MENU.state == 0:# la cai dau tien 'tai anh'
 
                         # --- duyet file ------
                         url=duyet()
@@ -43,20 +43,32 @@ if __name__ == '__main__':
 
                     elif MENU.state == 1:
                         # --- Khu nhieu ------
-                        imgKN=khuNhieu.medianBlur(img)
+                        #imgKN=khuNhieu.medianBlur(img)
                         imgKN=khuNhieu.gaussianBlur(img)
                         cv2.imshow("Khu nhieu",imgKN)
                         waiter()
-                        cv2.imwrite("output/denoise/khuNhieu_"+url[-2:0]+".jpg",imgKN)
+                        cv2.imwrite("output/denoise/khuNhieu.jpg",imgKN)
                     elif MENU.state == 2:
                         # --- phat hien canh ------
                         imgEdge=edge.canny(img)
-                        cv2.imshow("edge",imgEdge)
+                        cv2.imshow("edgeSobelx",edge.sobelX(img))
+                        cv2.imshow("edgeSobely",edge.sobelY(img))
+                        cv2.imshow("edgeCanny",imgEdge)
+
                         waiter()
                         cv2.imwrite("output/edge/timCanh_."+url[-2:0]+"jpg",imgEdge)
-                    elif MENU.state == 3:
+                    elif MENU.state == 3:# cai cua m o day
                         # --- phat hien khuon mat ------
+                        #dong duoi la2 show cai hinh phat hien khuon mat ra!!!
                         #cv2.imshow("Phat hien khuon mat",cv2.resize(faceRecognition.faceDectection(img), (screen_width, screen_height)))
+                        #nhung ma m bo r nen lam lai chut di ok ko??
+                        print(url)
+                        waiter()
+                    elif MENU.state == 4:# cai nay la nhan dien khuon mat. m biet dung xml ko khoi cai database
+                        # --- phat hien khuon mat ------
+                        #dong duoi la2 show cai hinh phat hien khuon mat ra!!!
+                        #cv2.imshow("Phat hien khuon mat",cv2.resize(faceRecognition.faceDectection(img), (screen_width, screen_height)))
+                        #nhung ma m bo r nen lam lai chut di ok ko??
                         print(url)
                         waiter()
                     elif MENU.state == 5:

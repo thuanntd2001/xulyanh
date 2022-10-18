@@ -41,7 +41,7 @@ def filter(img):
     for y in range(0+r,h-r):
         elapsed = time.clock()-starttime
         if elapsed > 0.1 and y % 10 == 0:
-            print "Applying filter: %3i / %3i: %0.2f %%; %0.1f p/s\r" % (y, h, (y-r)*100.0/(h-r*2), pixelsProcessed/elapsed),
+            print ("Applying filter: %3i / %3i: %0.2f %%; %0.1f p/s\r" % (y, h, (y-r)*100.0/(h-r*2), pixelsProcessed/elapsed))
         for x in range(0+r,w-r):
              # filter kernel
             i = 0

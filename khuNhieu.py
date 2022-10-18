@@ -9,7 +9,7 @@ sharpenMatrix= ([[0,-1,0],
 sharpenNP=np.array(sharpenMatrix)
 kernel = np.ones((3,3), np.float32)/9
 
-size=3
+size=5
 
 def medianBlur(img):
 	return cv2.medianBlur(img,size)
