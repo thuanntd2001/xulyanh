@@ -3,9 +3,9 @@ import pygame
 import cv2
 import faceRecognition
 from giaoDien import Menu as Menu,screen_width,screen_height,waiter
-
 from duyetFile import duyet
 import khuNhieu
+import edge
 
 
 if __name__ == '__main__':
@@ -33,17 +33,15 @@ if __name__ == '__main__':
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     if MENU.state == 5:
-                        # --- duyet file ------
+                        # --- show file ------
                         cv2.imshow("Original",img)
                         print(url)
                         waiter()
-                        run=True
                     if MENU.state == 3:
                         # --- phat hien khuon mat ------
                         cv2.imshow("Original",cv2.resize(faceRecognition.faceDectection(img), (screen_width, screen_height)))
                         print(url)
                         waiter()
-                        run=True
                     if MENU.state == 0:
 
                         # --- duyet file ------
@@ -52,16 +50,20 @@ if __name__ == '__main__':
                         cv2.imshow("Original",img)
                         print(url)
                         waiter()
-                        run=True
 
                     elif MENU.state == 1:
                         # --- Khu nhieu ------
                         imgKN=khuNhieu.medianBlur(img)
+                        imgKN=khuNhieu.gaussianBlur(img)
                         cv2.imshow("Khu nhieu",imgKN)
                         waiter()
-                        run=True
+                        cv2.imwrite("output/denoise/khuNhieu_"+url[-2:0]+".jpg",imgKN)
                     elif MENU.state == 2:
-                        run=False
+                        # --- phat hien canh ------
+                        imgEdge=edge.canny(img)
+                        cv2.imshow("edge",imgEdge)
+                        waiter()
+                        cv2.imwrite("output/edge/timCanh_."+url[-2:0]+"jpg",imgEdge)
         screen.blit(bg,(0,0))
         MENU.update(screen)
         

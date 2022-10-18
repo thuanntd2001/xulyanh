@@ -1,35 +1,5 @@
-
-import numpy as np
 import cv2
-from matplotlib import pyplot as plt
-import khuNhieu
-
-img = cv2.imread("sample/noisy/bird.jpg")
-
-def grayscale(img):
-	return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-img_gray= grayscale(img)
-
-
-img_blur = khuNhieu.medianBlur(img_gray) 
-
-
-def sobelX(img):
-	return cv2.Sobel(src=img, ddepth=cv2.CV_64F, dx=1, dy=0, ksize=5)
-
-def sobelY(img):
-	return cv2.Sobel(src=img, ddepth=cv2.CV_64F, dx=0, dy=1, ksize=5)
-
-def sobelXY(img):
-	return cv2.Sobel(src=img, ddepth=cv2.CV_64F, dx=1, dy=1, ksize=5)
-
-def canny(img):
-	return cv2.Canny(image=img, threshold1=100, threshold2=200)
-
-def waiter():
-	cv2.waitKey(0);
-	cv2.destroyAllWindows()
+import numpy as np
 
 def scale_to_0_255(img):
     min_val = np.min(img)
@@ -100,15 +70,10 @@ def my_canny(img, min_val, max_val, sobel_size=3, is_L2_gradient=False):
     canny_mask[(keep_mask>0) * (edge_gradient>min_val)] = 255
     
     return scale_to_0_255(canny_mask)
-if __name__ == '__main__':
 
-	cv2.imshow("Goc", img)
-	cv2.imshow("sobelX", sobelX(img_blur))
-	cv2.imshow("sobelY", sobelY(img_blur))
-	cv2.imshow("sobelXY", sobelXY(img_blur))
-	cv2.imshow("canny", canny(img_blur))
+img = cv2.imread('girl_11.jpg', 0)
+my_canny = my_canny(img, min_val=100, max_val=200)
+edges = cv2.Canny(img, 100, 200)
 
-
-
-	waiter()
-
+cv2.imwrite('my_canny.jpg', my_canny)
+cv2.imwrite('edges.jpg', edges)

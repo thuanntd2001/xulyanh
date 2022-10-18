@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 
-img = cv2.imread("noisy/cat.jpeg")
+img = cv2.imread("sample/noisy/cat.jpeg")
 sharpenMatrix= ([[0,-1,0],
 				[-1,5,-1],
 				[0,-1,0]])
