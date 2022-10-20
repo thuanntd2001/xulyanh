@@ -1,7 +1,7 @@
 
 import numpy as np
 import cv2
-from matplotlib import pyplot as plt
+# from matplotlib import pyplot as plt
 import khuNhieu
 
 img = cv2.imread("sample/noisy/bird.jpg")
@@ -25,7 +25,7 @@ def sobelXY(img):
 	return cv2.Sobel(src=img, ddepth=cv2.CV_64F, dx=1, dy=1, ksize=5)
 
 def canny(img):
-	return cv2.Canny(image=img, threshold1=100, threshold2=200)
+	return cv2.Canny(image=img, threshold1=100, threshold2=150)
 
 def waiter():
 	cv2.waitKey(0);

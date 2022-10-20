@@ -19,7 +19,7 @@ if __name__ == '__main__':
     clock=pygame.time.Clock()
     bg=pygame.image.load('assert/bg2.jpeg').convert()
 
-    MENU=Menu(('Tải ảnh','Khử nhiễu','Phát hiện biên/cạnh ','Phát hiện khuôn mặt','Nhận diện khuôn mặt','Xem ảnh gốc'))
+    MENU=Menu(['Tải ảnh','Khử nhiễu','Phát hiện biên/cạnh ','Phát hiện khuôn mặt','Nhận diện khuôn mặt','Xem ảnh gốc'])
     screen=pygame.display.set_mode((screen_width,screen_height))
 
     run=True
@@ -36,6 +36,7 @@ if __name__ == '__main__':
 
                         # --- duyet file ------
                         url=duyet()
+                        MENU.items[0]= 'URL: '+ url
                         img=cv2.imread(url)
                         cv2.imshow("Original",img)
                         print(url)
@@ -43,20 +44,30 @@ if __name__ == '__main__':
 
                     elif MENU.state == 1:
                         # --- Khu nhieu ------
-                        #imgKN=khuNhieu.medianBlur(img)
-                        imgKN=khuNhieu.gaussianBlur(img)
-                        cv2.imshow("Khu nhieu",imgKN)
+                        imgKN_0=khuNhieu.gaussianBlur(img)
+
+                        imgKN_1=khuNhieu.medianBlur(img)
+                        imgKN_2=khuNhieu.gaussianBlur(imgKN_1)
+                        cv2.imshow("Khu nhieu",imgKN_2)
                         waiter()
-                        cv2.imwrite("output/denoise/khuNhieu.jpg",imgKN)
+
+                        cv2.imwrite("output/denoise/khuNhieu.jpg",imgKN_2)
+                        cv2.imwrite("output/denoise/khuNhieu_median.jpg",imgKN_1)
+                        cv2.imwrite("output/denoise/khuNhieu_gauss.jpg",imgKN_0)
                     elif MENU.state == 2:
                         # --- phat hien canh ------
-                        imgEdge=edge.canny(img)
-                        cv2.imshow("edgeSobelx",edge.sobelX(img))
-                        cv2.imshow("edgeSobely",edge.sobelY(img))
+                        imgGray=edge.grayscale(img)
+                        imgEdge=edge.canny(imgGray)
+                        img1=edge.sobelX(imgGray)
+                        img2=edge.sobelY(imgGray)
+
                         cv2.imshow("edgeCanny",imgEdge)
 
                         waiter()
-                        cv2.imwrite("output/edge/timCanh_."+url[-2:0]+"jpg",imgEdge)
+                        cv2.imwrite("output/edge/timCanh_edgeSobelX.jpg",img1)
+                        cv2.imwrite("output/edge/timCanh_edgeSobelY.jpg",img2)
+                        cv2.imwrite("output/edge/timCanh_edgeCanny.jpg",imgEdge)
+
                     elif MENU.state == 3:# cai cua m o day
                         # --- phat hien khuon mat ------
                         #dong duoi la2 show cai hinh phat hien khuon mat ra!!!

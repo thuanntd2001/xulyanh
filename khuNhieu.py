@@ -1,6 +1,6 @@
 import numpy as np
 import cv2
-from matplotlib import pyplot as plt
+# from matplotlib import pyplot as plt
 
 img = cv2.imread("sample/noisy/cat.jpeg")
 sharpenMatrix= ([[0,-1,0],
@@ -9,13 +9,15 @@ sharpenMatrix= ([[0,-1,0],
 sharpenNP=np.array(sharpenMatrix)
 kernel = np.ones((3,3), np.float32)/9
 
-size=5
+size=3
+size_gauss=5
+
 
 def medianBlur(img):
 	return cv2.medianBlur(img,size)
 
 def gaussianBlur(img):
-	return cv2.GaussianBlur(img,(size,size),0)
+	return cv2.GaussianBlur(img,(size_gauss,size_gauss),0)
 
 def bilateral(img):
 	return cv2.bilateralFilter(img,9,75,75)

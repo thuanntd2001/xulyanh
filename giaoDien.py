@@ -13,6 +13,7 @@ def waiter():
 
 class Menu(object):
     state=0
+    url=""
     def __init__(self,items):
         self.font_color=(150,150,0)#chữ để in start ,exit
         self.select_color=(200,50,50)#font chữ để in khi mà con trỏ chỉ vào
@@ -32,7 +33,8 @@ class Menu(object):
 
             screen.blit(label,(posX,posY))
         
-            
+        # screen.blit(self.font.render("url: "+self.url,True,self.font_color),(screen_width-(10*len(self.url)),screen_height-50))
+
             
     def event_handler(self,event):
         if event.type == pygame.KEYDOWN:
