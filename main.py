@@ -5,6 +5,7 @@ from giaoDien import Menu as Menu,screen_width,screen_height,waiter
 from duyetFile import duyet
 import khuNhieu
 import edge
+import faceDetect
 
 
 if __name__ == '__main__':
@@ -70,10 +71,10 @@ if __name__ == '__main__':
 
                     elif MENU.state == 3:# cai cua m o day
                         # --- phat hien khuon mat ------
-                        #dong duoi la2 show cai hinh phat hien khuon mat ra!!!
-                        #cv2.imshow("Phat hien khuon mat",cv2.resize(faceRecognition.faceDectection(img), (screen_width, screen_height)))
-                        #nhung ma m bo r nen lam lai chut di ok ko??
-                        print(url)
+                        detectImg=faceDetect.faceDetect(img)
+                        cv2.imshow("faceDetect",detectImg)
+                        cv2.imwrite("output/faceDetect/Faces.jpg",detectImg)
+
                         waiter()
                     elif MENU.state == 4:# cai nay la nhan dien khuon mat. m biet dung xml ko khoi cai database
                         # --- phat hien khuon mat ------
